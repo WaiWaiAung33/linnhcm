@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Branch;
+use App\Position;
 use Illuminate\Http\Request;
 
-class BranchController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,12 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branchs = new Branch();
-        $count=$branchs->get()->count();
-        $branchs = $branchs->orderBy('created_at','desc')->paginate(10);
-        // dd($count);
-        return view('branch.index',compact('count','branchs'))->with('i', (request()->input('page', 1) - 1) * 10);;
+        $positions = new Position();
+        $count=$positions->get()->count();
+        $positions = $positions->orderBy('created_at','desc')->paginate(10);
+        
+        return view('position.index',compact('count','positions'))->with('i', (request()->input('page', 1) - 1) * 10);;
+       
     }
 
     /**
@@ -28,7 +29,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        return view('branch.create');
+        //
     }
 
     /**
@@ -39,27 +40,25 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-          $rules = [
+         $rules = [
             'name'=>'required',
         ];
 
          $this->validate($request,$rules);
-        $branch=Branch::create([
+        $position=Position::create([
             'name'=> $request->name,
-            'latitude'=>$request->latitude,
-            'longitude'=>$request->longitude,
         ]
         );
-        return redirect()->route('branch.index')->with('success','Branch created successfully');;;
+        return redirect()->route('position.index')->with('success','Position created successfully');;;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Branch  $branch
+     * @param  \App\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function show(Branch $branch)
+    public function show(Position $position)
     {
         //
     }
@@ -67,40 +66,40 @@ class BranchController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Branch  $branch
+     * @param  \App\Position  $position
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-         $branchs=Branch::find($id);
-        return view('branch.edit',compact('branchs'));
+        $positions=Position::find($id);
+        return view('position.edit',compact('positions'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Branch  $branch
+     * @param  \App\Position  $position
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$id)
     {
-         $branchs=Branch::find($id);
-        $branchs=$branchs->update($request->all());
-         return redirect()->route('branch.index')->with('success','Branch updated successfully');;
+       $positions=Position::find($id);
+        $positions=$positions->update($request->all());
+         return redirect()->route('position.index')->with('success','Position updated successfully');;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Branch  $branch
+     * @param  \App\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Branch $branch)
+    public function destroy(Position $position)
     {
-        $branch->delete();
+       $position->delete();
   
-        return redirect()->route('branch.index')
-                        ->with('success','Branch deleted successfully');
+        return redirect()->route('position.index')
+                        ->with('success','Position deleted successfully');
     }
 }

@@ -1,6 +1,7 @@
 
 
 @extends('layouts.app')
+
 <style type="text/css">
    .styled-table {
           border-collapse: collapse;
@@ -33,77 +34,81 @@
           }
 </style>
 @section('content')
-<?php
-        $name = isset($_GET['name'])?$_GET['name']:'';
-?>
 <div class="container">
-  <p style="font-size: 20px">Branch Management</p>
- <form action="{{route('branch.store')}}" method="post" enctype="multipart/form-data" style="padding-top: 10px">
-        @csrf
+   <p style="font-size: 20px">Department Management</p>
+ <form action="{{route('department.store')}}" method="post" enctype="multipart/form-data" style="padding-top: 10px">
+       @csrf
         <div class="row" style="padding-left: 8px">
             <div class="col-md-8">
-               <input type="text" name="name" placeholder="Branch Name" class="form-control" value="{{old('name',$name)}}"> 
+               <input type="text" name="name" placeholder="Department Name" class="form-control"> 
             </div>
         </div>
+
         <div class="row" style="padding-left: 8px;padding-top: 10px">
-        	  <div class="col-md-4">
-                <input type="number" name="latitude" placeholder="Enter Latitude" class="form-control">
-            </div>
-            <div class="col-md-4">
-                <input type="number" name="longitude" placeholder="Enter Longitude" class="form-control">
-            </div>
-                <button class="btn btn-success" type="submit">
-                    <i class="fas fa-plus"> Branch</i>
-                </button>
-            </div>
+              <div class="col-md-4">
+                <label>In Time</label>
+              </div>
+              <div class="col-md-4">
+                <label>Out Time</label>
+              </div>
         </div>
+
+        <div class="row" style="padding-left: 8px;padding-top: 5px">
+            
+              <div class="col-md-4">
+               <input type="date" class="form-control unicode" placeholder="01-08-2020" name="in_time" id="in_time">
+              </div>
+  
+              <div class="col-md-4">
+               <input type="date" class="form-control unicode" placeholder="01-08-2020" name="out_time" id="out_time">
+              </div>
+            
+            <button class="btn btn-success" type="submit">
+                    <i class="fas fa-plus"> Department</i>
+            </button>
+        </div>     
+      
     </form><hr>
      @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
             </div>
      @endif
-
-     <div class="row">
-      <div class="col-md-9">
-      
-       </div>
-       <div class="col-md-3">                 
-          <input type="text" name="" class="form-control" placeholder="Search...">
-        </div>
-     </div>
-      <p style="padding-left: 10px">Total record:{{$count}}</p>
+     <p style="padding-left: 10px">Total record:{{$count}}</p>
     <div class="table-responsive" style="font-size:15px">
                 <table class="table table-bordered styled-table">
                   <thead>
                     <tr> 
                       <th>No</th>
-                        <th>Branch Name</th>
+                        <th>Department Name</th>
+                        <th>In Time</th>
+                        <th>Out Time</th>
                         <th>Action</th>
                     </tr>
                   </thead>
                     <tbody>
-              		 @foreach($branchs as $branch)
-
+              		@foreach($departments as $department)
                         <tr>
                             <td>{{++$i}}</td>
-                            <td>{{$branch->name}}</td>
+                            <td>{{$department->name}}</td>
+                            <td>{{$department->in_time}}</td>
+                            <td>{{$department->out_time}}</td>
                             <td>
-                                <form action="{{route('branch.destroy',$branch->id)}}" method="post"
+                                <form action="{{route('department.destroy',$department->id)}}" method="post"
                                     onsubmit="return confirm('Do you want to delete?');">
-                                   @csrf
-                                   @method('DELETE')
-                                    <a class="btn btn-sm btn-primary" href="{{route('branch.edit',$branch->id)}}"><i class="fa fa-fw fa-edit"></i></a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <a class="btn btn-sm btn-primary" href="{{route('department.edit',$department->id)}}"><i class="fa fa-fw fa-edit"></i></a>
                                     <button class="btn btn-sm btn-danger btn-sm" type="submit">
                                         <i class="fa fa-fw fa-trash" title="Delete"></i>
                                     </button>
                                 </form>
                             </td>
                         </tr>
-                         @endforeach
-			            
+                        
+			            @endforeach
                     </tbody>
            </table> 
-           {!! $branchs->appends(request()->input())->links() !!}
-       </div>   
+             {!! $departments->appends(request()->input())->links() !!}
+       </div>  
 @endsection

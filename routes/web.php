@@ -24,3 +24,11 @@ Route::resource('/users','UserController');
 
 Route::resource('/branch','BranchController');
 
+Route::resource('/position','PositionController');
+
+Route::resource('/department','DepartmentController');
+
+Route::resource('/employee','EmployeeController');
+
+Route::resource('/salary','SalaryController');
+

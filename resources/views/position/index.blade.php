@@ -37,63 +37,46 @@
         $name = isset($_GET['name'])?$_GET['name']:'';
 ?>
 <div class="container">
-  <p style="font-size: 20px">Branch Management</p>
- <form action="{{route('branch.store')}}" method="post" enctype="multipart/form-data" style="padding-top: 10px">
+ <form action="{{route('position.store')}}" method="post" enctype="multipart/form-data" style="padding-top: 10px">
         @csrf
         <div class="row" style="padding-left: 8px">
-            <div class="col-md-8">
-               <input type="text" name="name" placeholder="Branch Name" class="form-control" value="{{old('name',$name)}}"> 
+            <div class="col-md-6">
+               <input type="text" name="name" placeholder="Position Name" class="form-control" value="{{old('name',$name)}}"> 
             </div>
-        </div>
-        <div class="row" style="padding-left: 8px;padding-top: 10px">
-        	  <div class="col-md-4">
-                <input type="number" name="latitude" placeholder="Enter Latitude" class="form-control">
-            </div>
-            <div class="col-md-4">
-                <input type="number" name="longitude" placeholder="Enter Longitude" class="form-control">
-            </div>
-                <button class="btn btn-success" type="submit">
-                    <i class="fas fa-plus"> Branch</i>
+            <button class="btn btn-success" type="submit">
+                    <i class="fas fa-plus"> Position</i>
                 </button>
-            </div>
         </div>
-    </form><hr>
+       
+                
+            
+        </div>
+    </form>
      @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
             </div>
      @endif
-
-     <div class="row">
-      <div class="col-md-9">
-      
-       </div>
-       <div class="col-md-3">                 
-          <input type="text" name="" class="form-control" placeholder="Search...">
-        </div>
-     </div>
-      <p style="padding-left: 10px">Total record:{{$count}}</p>
     <div class="table-responsive" style="font-size:15px">
                 <table class="table table-bordered styled-table">
                   <thead>
                     <tr> 
                       <th>No</th>
-                        <th>Branch Name</th>
+                        <th>Position Name</th>
                         <th>Action</th>
                     </tr>
                   </thead>
                     <tbody>
-              		 @foreach($branchs as $branch)
-
+              		 @foreach($positions as $position)
                         <tr>
                             <td>{{++$i}}</td>
-                            <td>{{$branch->name}}</td>
+                            <td>{{$position->name}}</td>
                             <td>
-                                <form action="{{route('branch.destroy',$branch->id)}}" method="post"
+                                <form action="{{route('position.destroy',$position->id)}}" method="post"
                                     onsubmit="return confirm('Do you want to delete?');">
                                    @csrf
                                    @method('DELETE')
-                                    <a class="btn btn-sm btn-primary" href="{{route('branch.edit',$branch->id)}}"><i class="fa fa-fw fa-edit"></i></a>
+                                    <a class="btn btn-sm btn-primary" href="{{route('position.edit',$position->id)}}"><i class="fa fa-fw fa-edit"></i></a>
                                     <button class="btn btn-sm btn-danger btn-sm" type="submit">
                                         <i class="fa fa-fw fa-trash" title="Delete"></i>
                                     </button>
@@ -104,6 +87,5 @@
 			            
                     </tbody>
            </table> 
-           {!! $branchs->appends(request()->input())->links() !!}
        </div>   
 @endsection

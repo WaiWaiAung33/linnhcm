@@ -1,4 +1,5 @@
 <!-- need to remove -->
+
 <li class="nav-item">
     <a href="../widgets.html" class="nav-link">
         <i class="nav-icon fas fa-th"></i>
@@ -7,7 +8,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="gallery.html" class="nav-link">
+    <a href="{{route('employee.index')}}" class="nav-link">
        <i class="fa fa-users" aria-hidden="true"></i>
         <p>Employee</p>
     </a>
@@ -21,28 +22,28 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{route('branch.index')}}" class="nav-link">
+    <a href="{{route('branch.index')}}" class="nav-link" >
         <i class="fa fa-location-arrow" aria-hidden="true"></i>
         <p>Branch</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="gallery.html" class="nav-link">
+    <a href="{{route('department.index')}}" class="nav-link">
        <i class="fa fa-cubes" aria-hidden="true"></i>
         <p>Department</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="gallery.html" class="nav-link">
+    <a href="{{route('position.index')}}" class="nav-link">
         <i class="fa fa-bullseye" aria-hidden="true"></i>
         <p>Position</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="gallery.html" class="nav-link">
+    <a href="{{route('salary.index')}}" class="nav-link">
        <i class="fa fa-credit-card" aria-hidden="true"></i>
         <p>Salary</p>
     </a>
